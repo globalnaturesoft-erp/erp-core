@@ -1093,4 +1093,20 @@ $(document).ready(function() {
         // submit form
         submitModalHasForm($(this));
     });
+    
+    $(document).on("click", ".one_click_btn", function(e) {            
+        if ($(this).closest('form').valid()) {
+            if ($(this).prop('tagName').toLowerCase() == 'button') {
+                $(this).html('Đang xử lý... Hãy chờ!');
+            }
+            
+            if ($(this).prop('tagName').toLowerCase() == 'input') {
+                $(this).val('Đang xử lý... Hãy chờ!');
+            }
+            
+            $(this).addClass('btn-disabled'); // them class vao nut hien tai
+            $(this).closest('form').find(":submit").addClass('btn-disabled'); // them class vao nut khac
+            $(this).closest('form').submit();
+        }
+    });
 });
