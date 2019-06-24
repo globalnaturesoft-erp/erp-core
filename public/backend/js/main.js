@@ -1106,7 +1106,6 @@ $(document).ready(function() {
             
             $(this).addClass('btn-disabled'); // them class vao nut hien tai
             $(this).closest('form').find(":submit").addClass('btn-disabled'); // them class vao nut khac
-            $(this).closest('form').submit();
         }
     });
 });
