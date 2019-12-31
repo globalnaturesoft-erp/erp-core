@@ -30,6 +30,13 @@ module Erp
 			has_many :wish_lists, dependent: :destroy, class_name: 'Erp::Carts::WishList'
 		end
 
+    def active_for_authentication?
+        # Uncomment the below debug statement to view the properties of the returned self model values.
+        # logger.debug self.to_yaml
+        	
+        super && self.active
+    end
+
     # Filters
     def self.filter(query, params)
       params = params.to_unsafe_hash
