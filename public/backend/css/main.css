@@ -1101,3 +1101,6 @@ thead tr th {
 .btn:not(.md-skip):not(.bs-select-all):not(.bs-deselect-all).btn-xs {
     padding: 3px 16px;
 }
+.mce-tinymce.mce-fullscreen {
+    z-index: 10000;
+}
