@@ -1104,3 +1104,14 @@ thead tr th {
 .mce-tinymce.mce-fullscreen {
     z-index: 10000;
 }
+.search-items-by-field {
+    box-sizing: border-box;
+    font-size: 16px;
+    width: 100%;
+    padding: 5px 17px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+.search-items-by-field:focus {
+    outline: none;
+}

@@ -532,6 +532,22 @@ function autoAddItemsLine(container) {
 // Init vars
 var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
 
+
+$(".search-items-by-field").keyup(function() {
+    var inputSearch, filterText, links, i;
+    inputSearch = $(this);
+    filterText = inputSearch.val().toLowerCase();
+    links = inputSearch.closest('ul.dropdown-menu').children('li:not(.divider)');
+    for (i = 0; i < links.length; i++) {
+        txtValue = links[i].querySelector('a').textContent || links[i].querySelector('a').innerText;
+        if (txtValue.toLowerCase().indexOf(filterText) > -1) {
+            links[i].style.display = '';
+        } else {
+            links[i].style.display = 'none';
+        }
+    }
+});
+
 // Main js execute when loaded page
 $(document).ready(function() {
     // Datalist action link with message return

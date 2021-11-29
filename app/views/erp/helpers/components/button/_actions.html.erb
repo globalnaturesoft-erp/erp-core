@@ -6,6 +6,12 @@
         <i class="fa fa-angle-down"></i>
     </a>
     <ul class="dropdown-menu pull-right">
+        <% if options[:searchbox].present? %>
+            <div class="input-icon right">
+                <input type="text" placeholder="<%= options[:searchbox] %>" class="search-items-by-field">
+                <i class="fa fa-search"></i>
+            </div>
+        <% end %>
         <% options[:actions].each do |act| %>
             <% if act[:divider] %>
                 <li class="divider"></li>
