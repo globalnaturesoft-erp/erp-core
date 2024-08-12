@@ -8,7 +8,7 @@ function submitModalHasForm(form) {
 
     // form data
     var form_data = new FormData(form[0]);
-    
+
     if (form.valid()) {
         $.ajax({
             type: method,
@@ -20,11 +20,11 @@ function submitModalHasForm(form) {
             {
                 if(typeof(data) == 'object') {
                     showAlert('success', 'Lưu thành công!');
-                    
+
                     modal.modal('hide');
                     datalistFilterAll();
                 }
-                
+
                 //// get data
                 //container = $('<div>').html(data).find(selector);
                 //if (container.length) {
@@ -308,17 +308,17 @@ function jsForAjaxContent(container) {
         var url = box.attr('data-url');
         var controls = $(box.attr('data-control'));
         var but = $('.'+box.attr('data-button'));
-        
+
         if(but.length) {
             but.click(function() {
                 str = box.attr('data-control');
                 //console.log(str);
-    
+
                 var datas = [];
                 str.split(',').forEach(function(str) {
                     datas.push($(str).val());
                 });
-    
+
                 // More global filter
                 var form_data = {};
                 arr = box.closest('form').serializeArray();
@@ -336,12 +336,12 @@ function jsForAjaxContent(container) {
                         form_data[name] = arr[i]['value'];
                     }
                 }
-    
+
                 box.addClass('loading');
                 if (!box.find(".loader").length) {
                     box.prepend('<div class="loader"><div class="ball-clip-rotate-multiple"><div></div><div></div></div></div>');
                 }
-    
+
                 $.ajax({
                     url: url,
                     method: 'GET',
@@ -352,24 +352,24 @@ function jsForAjaxContent(container) {
                 }).done(function( result ) {
                     box.html(result);
                     jsForAjaxContent(box);
-    
+
                     box.removeClass('loading');
                     box.find(".loader").remove();
                 });
             });
-            
+
             but.trigger('click');
         } else {
             $(document).on('change', box.attr('data-control'), function() {
             //box.closest('body, .modal-body').find(box.attr('data-control')).change(function() {
                 str = box.attr('data-control');
                 //console.log(str);
-    
+
                 var datas = [];
                 str.split(',').forEach(function(str) {
                     datas.push(box.closest('body, .modal-body').find(str).val());
                 });
-    
+
                 // More global filter
                 var form_data = {};
                 arr = box.closest('form').serializeArray();
@@ -387,12 +387,12 @@ function jsForAjaxContent(container) {
                         form_data[name] = arr[i]['value'];
                     }
                 }
-    
+
                 box.addClass('loading');
                 if (!box.find(".loader").length) {
                     box.prepend('<div class="loader"><div class="ball-clip-rotate-multiple"><div></div><div></div></div></div>');
                 }
-    
+
                 $.ajax({
                     url: url,
                     method: 'GET',
@@ -403,7 +403,7 @@ function jsForAjaxContent(container) {
                 }).done(function( result ) {
                     box.html(result);
                     jsForAjaxContent(box);
-    
+
                     box.removeClass('loading');
                     box.find(".loader").remove();
                 });
@@ -452,7 +452,7 @@ function jsForAjaxContent(container) {
         position: 'fixed',
         top: 50
     });
-    
+
     customValidate(container);
 }
 
@@ -461,7 +461,7 @@ function scrollToElement(element, top) {
   if(typeof(top) === 'undefined') {
     top = 0;
   }
-    
+
     if (typeof(element.offset()) != 'undefined') {
         $('html,body').animate({
           scrollTop: element.offset().top - top
@@ -651,11 +651,11 @@ $(document).ready(function() {
 
         var url = $(this).attr('href');
         var method = $(this).attr('data-method');
-        
+
         if (typeof(method) == 'undefined') {
             method = 'GET';
         }
-        
+
         var has_form_class = '';
         if ($(this).hasClass('has-form')) {
             has_form_class = 'has-form';
@@ -980,7 +980,7 @@ $(document).ready(function() {
         var html = $(boxes.attr('data-pattern')).html();
 
         boxes.append(html);
-        
+
         jsForAjaxContent(container.find('.addable-box').last());
 
         jsForAjaxContent(boxes.find('.addable-box').last());
@@ -997,7 +997,7 @@ $(document).ready(function() {
                     }
                 });
 
-                // index2                
+                // index2
                 $(this).find('.addable-boxes').each(function() {
                     index2 = 0;
                     $(this).children().each(function() {
@@ -1008,7 +1008,7 @@ $(document).ready(function() {
                                 $(this).attr('name', name);
                             }
                         });
-    
+
                         index2 += 1;
                     });
                 });
@@ -1031,25 +1031,27 @@ $(document).ready(function() {
 
     // table click-highlight row
     $(document).on("keypress", "form", function(event) {
-        return event.keyCode != 13;
+        if (event.target.tagName !== 'TEXTAREA' && event.keyCode === 13) {
+            event.preventDefault();
+        }
     });
-    
-    
+
+
     // with-checkboxes-link
     $(document).on("click", ".with-checkboxes-link", function(event) {
         event.preventDefault();
-        
+
         // create new modal if not exist
         var modal_uid = "link-modal-" + guid();
         var modal_size = 'full';
         var title = 'Tùy chọn nội dung';
         var url = $(this).attr('href');
-        
+
         // checkboxes
         var data = $(this).attr('data-checkboxes');
         var desc = $(this).attr('data-checkboxes-desc');
         var checkboxes_html = '';
-        
+
         data.split(',').forEach(function(element) {
             var iname = element.split('|')[0];
             var ilabel = element.split('|')[1];
@@ -1060,7 +1062,7 @@ $(document).ready(function() {
                                                     '<label class="mt-checkbox">' +
                                                         '<input type="checkbox" '+checked+' name="'+iname+'" value="yes"> '+ilabel+'' +
                                                         '<span></span>' +
-                                                    '</label>' +       
+                                                    '</label>' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>';
@@ -1094,32 +1096,32 @@ $(document).ready(function() {
 
         modal.modal('show');
     });
-    
+
     // table click-highlight row
     $(document).on("click", ".delivery-clear-prices", function(event) {
         event.preventDefault();
-        
+
         $('.delivery-detail-price').val('');
     });
-    
+
     // modal form submit
     $(document).on('submit', '.modal.has-form form', function(e) {
         e.preventDefault();
-        
+
         // submit form
         submitModalHasForm($(this));
     });
-    
-    $(document).on("click", ".one_click_btn", function(e) {            
+
+    $(document).on("click", ".one_click_btn", function(e) {
         if ($(this).closest('form').valid()) {
             if ($(this).prop('tagName').toLowerCase() == 'button') {
                 $(this).html('Đang xử lý... Hãy chờ!');
             }
-            
+
             if ($(this).prop('tagName').toLowerCase() == 'input') {
                 $(this).val('Đang xử lý... Hãy chờ!');
             }
-            
+
             $(this).addClass('btn-disabled'); // them class vao nut hien tai
             $(this).closest('form').find(":submit").addClass('btn-disabled'); // them class vao nut khac
         }
